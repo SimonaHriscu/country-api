@@ -1,5 +1,9 @@
-# Country API
+# Country API call
 
+## Preview:
+
+
+![Imgur](https://i.imgur.com/hJkKyjL.png?1)
 
 
 
