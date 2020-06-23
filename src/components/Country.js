@@ -1,4 +1,5 @@
 import React from "react";
+// import Result from "./Result"
 
 export default class App extends React.Component {
   constructor(props) {
@@ -9,7 +10,12 @@ export default class App extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <h4>Result here</h4>
+        <h4>Result here:
+         
+         {/* <ul>
+        { this.state.result.map(country => <li>{country.name}</li>)}
+      </ul>  */}
+        </h4>
       </React.Fragment>
     );
   }
