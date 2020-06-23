@@ -9,7 +9,7 @@ export default class App extends React.Component {
     this.state = {
       userInput: "",
       loading: true,
-      result: [],
+      result: "",
     };
     
     this.handleChange = (e) => {
@@ -29,11 +29,12 @@ export default class App extends React.Component {
       // console.log(translated);
     };
   }
+
   componentDidMount() {
     
     const url =
   "https://restcountries.eu/rest/v2/name/" +
-   "col/";
+   "ro/";
    console.log(url);
 
     axios.get(url)
@@ -41,15 +42,19 @@ export default class App extends React.Component {
       const countryList = res.data;
       console.log(countryList)
       this.setState({ 
-        result: countryList.map(country => <li>{country[1]}</li>)});
-      })
-      console.log(this.state.result);
+        result: countryList,
+       })
+          }); 
+      
+         // result: countryList.map(country => console.log(country.name))
 
     setTimeout(() => {
       this.setState({
         loading: false,
       });
     }, 2000);
+    
+   // console.log(this.state.result)
   }
 
   // fetch result
