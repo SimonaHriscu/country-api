@@ -10,7 +10,6 @@ export default class App extends React.Component {
       userInput: "",
       loading: true,
       result: "",
-      
     };
 
     this.handleChange = (e) => {
@@ -29,10 +28,10 @@ export default class App extends React.Component {
       // console.log(translated);
     };
   }
+  
 
   componentDidMount() {
-    const response = this.props.result;
-    console.log(response)
+   
     const url = "https://restcountries.eu/rest/v2/name/" + "ro/";
     console.log(url);
 
@@ -47,8 +46,6 @@ export default class App extends React.Component {
         loading: false,
       });
     }, 2000);
-
-    // console.log(this.state.result)
   }
 
   // fetch result
@@ -69,15 +66,17 @@ export default class App extends React.Component {
         <h1>Country App</h1>
 
         <form onChange={this.handleSubmit}>
-          <textarea
+          <input
             value={this.state.userInput}
             onChange={this.handleChange}
-            placeholder="Type your text here:"
+            placeholder="Type your country here:"
           />
+          <button type="submit">Search</button>
+          
 
-          {/* <textarea value={this.state.result} /> */}
-
-        <Country data={this.state.result.map((country) => <li>{country.name}</li>)} />
+          <Country
+            data={this.state.result}
+          />
         </form>
       </React.Fragment>
     );
