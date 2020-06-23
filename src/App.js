@@ -2,6 +2,7 @@ import React from "react";
 import Loading from "./components/Loading";
 import Country from "./components/Country";
 import axios from "axios";
+import './';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -9,7 +10,7 @@ export default class App extends React.Component {
     this.state = {
       userInput: "",
       loading: true,
-      result: "",
+      result: [],
     };
 
     this.handleChange = (e) => {
@@ -21,26 +22,21 @@ export default class App extends React.Component {
 
     this.handleSubmit = (e) => {
       e.preventDefault();
+      // this.setState({
+      //   loading: true,
+      // });
+      const url = `https://restcountries.eu/rest/v2/name/${this.state.userInput}`;
 
-      this.setState({
-        result: this.state.userInput,
+      axios.get(url).then((res) => {
+        const result = res.data;
+        console.log(result);
+        this.setState({ result });
       });
-      // console.log(translated);
     };
+    
   }
-  
 
   componentDidMount() {
-   
-    const url = "https://restcountries.eu/rest/v2/name/" + "ro/";
-    console.log(url);
-
-    axios.get(url).then((res) => {
-      const result = res.data;
-      console.log(result);
-      this.setState({ result });
-    });
-
     setTimeout(() => {
       this.setState({
         loading: false,
@@ -63,20 +59,18 @@ export default class App extends React.Component {
     if (this.state.loading) return <Loading />;
     return (
       <React.Fragment>
-        <h1>Country App</h1>
+        <h1 className="title">Sort countries: </h1>
 
-        <form onChange={this.handleSubmit}>
+        <form onSubmit={this.handleSubmit}>
           <input
-            value={this.state.userInput}
+            type="text"
+            name="name"
             onChange={this.handleChange}
             placeholder="Type your country here:"
           />
           <button type="submit">Search</button>
-          
 
-          <Country
-            data={this.state.result}
-          />
+          <Country data={this.state.result} />
         </form>
       </React.Fragment>
     );
