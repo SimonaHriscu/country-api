@@ -1,7 +1,7 @@
 import React from "react";
 import Loading from "./components/Loading";
 import Country from "./components/Country";
-import axios from "axios"; 
+import axios from "axios";
 
 export default class App extends React.Component {
   constructor(props) {
@@ -10,51 +10,45 @@ export default class App extends React.Component {
       userInput: "",
       loading: true,
       result: "",
+      
     };
-    
+
     this.handleChange = (e) => {
       this.setState({
         userInput: e.target.value.trim(),
       });
-     // console.log(e.target.value.trim());
+      // console.log(e.target.value.trim());
     };
 
     this.handleSubmit = (e) => {
       e.preventDefault();
-      
 
       this.setState({
-        result: "",
+        result: this.state.userInput,
       });
       // console.log(translated);
     };
   }
 
   componentDidMount() {
-    
-    const url =
-  "https://restcountries.eu/rest/v2/name/" +
-   "ro/";
-   console.log(url);
+    const response = this.props.result;
+    console.log(response)
+    const url = "https://restcountries.eu/rest/v2/name/" + "ro/";
+    console.log(url);
 
-    axios.get(url)
-    .then(res => {
-      const countryList = res.data;
-      console.log(countryList)
-      this.setState({ 
-        result: countryList,
-       })
-          }); 
-      
-         // result: countryList.map(country => console.log(country.name))
+    axios.get(url).then((res) => {
+      const result = res.data;
+      console.log(result);
+      this.setState({ result });
+    });
 
     setTimeout(() => {
       this.setState({
         loading: false,
       });
     }, 2000);
-    
-   // console.log(this.state.result)
+
+    // console.log(this.state.result)
   }
 
   // fetch result
@@ -80,14 +74,11 @@ export default class App extends React.Component {
             onChange={this.handleChange}
             placeholder="Type your text here:"
           />
-          {/* <ul>
-            
-{ this.state.result.filter(country => <li>{country.name}</li>)}
-          </ul> */}
-          {/* <textarea value={this.state.result} /> */}
-        </form>
 
-        <Country data="sendSomething" />
+          {/* <textarea value={this.state.result} /> */}
+
+        <Country data={this.state.result.map((country) => <li>{country.name}</li>)} />
+        </form>
       </React.Fragment>
     );
   }

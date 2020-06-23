@@ -5,17 +5,14 @@ export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
+    console.log(props.data);
   }
 
   render() {
     return (
       <React.Fragment>
-        <h4>Result here:
-         
-         {/* <ul>
-        { this.state.result.map(country => <li>{country.name}</li>)}
-      </ul>  */}
-        </h4>
+        <h4> Result here:</h4>
+        {this.props.data}
       </React.Fragment>
     );
   }
